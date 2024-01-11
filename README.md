@@ -35,6 +35,8 @@ exec clisp -q -q $0 $0 ${1+"$@"}
 
 The complex shebang above provides a POSIX compliant way to load the Common Lisp interpreter and query CLI arguments.
 
+The repetition `$0 $0` in the shebang works around a limitation in CLISP, which historically failed to present the name of the script for querying.
+
 ## Import libraries
 
 ```commonlisp
