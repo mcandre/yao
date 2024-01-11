@@ -1,0 +1,19 @@
+#!/bin/sh
+#|
+exec clisp -q -q $0 $0 ${1+"$@"}
+|#
+
+; https://www.quicklisp.org/beta/
+(load "~/quicklisp/setup.lisp")
+(ql:quickload 'uiop :silent t)
+
+(defun test ()
+  (uiop:run-program '("clisp" "hello.lisp") :output t))
+
+(let ((default-task "test")
+      (args (cdr *args*)))
+  (if (eq (list-length args) 0)
+      (funcall (intern (string-upcase default-task)))
+      (mapcar #'(lambda (arg)
+                  (funcall (intern (string-upcase arg))))
+              args)))
